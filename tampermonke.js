@@ -3,8 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.3
 // @description  Block unwanted websites in a given list.
-// @author       Overlord_303
+// @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/block.png
+// @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/tampermonke.js
 // @match        *://*/*
 // @grant        GM_setValue
 // @grant        GM_getValue
