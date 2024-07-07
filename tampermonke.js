@@ -4,7 +4,7 @@
 // @version      1.3
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=greasyfork.org
+// @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/block.png
 // @match        *://*/*
 // @grant        GM_setValue
 // @grant        GM_getValue
