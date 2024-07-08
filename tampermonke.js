@@ -8,6 +8,7 @@
 // @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/tampermonke.js
 // @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/tampermonke.js
 // @supportURL   https://github.com/overlord-303/BlockWebsitesTampermonkey/issues
+// @license      GNU AGPLv3
 // @match        *://*/*
 // @grant        GM_setValue
 // @grant        GM_getValue
