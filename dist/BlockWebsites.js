@@ -301,7 +301,7 @@ function updateBlockedList()
  */
 function onKeyDown(handler)
 {
-    const space = (handler.which === 0 ? handler.charCode : handler.keyCode) === 32;
+    const space = handler.key === ' ';
     const ctrl = handler.ctrlKey;
 
     if (ctrl && space && !vars.modalOpen) openModal();
