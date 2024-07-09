@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.5.0
+// @version      1.5.1
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
