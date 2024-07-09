@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.5.2
+// @version      1.5.3
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
@@ -21,7 +21,6 @@
 const vars = {
     href: (link) => window.location.href.includes(link),
     regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
-    div: document.createElement('div'),
     style: {
         backgroundTransparent: 'rgba(0,0,0,0.5)',
         backgroundColor: '#181a1b',
@@ -36,6 +35,7 @@ const vars = {
             closeBtn: 'gray',
         },
     },
+    div: document.createElement('div'),
     modalOpen: false,
     blockBtnId: generateUUID('blockBtn'),
     unblockBtnId: generateUUID('unblockBtn'),
@@ -296,10 +296,9 @@ function updateBlockedList()
  */
 function onKeyDown(handler)
 {
-    const space = handler.key === ' ';
-    const ctrl = handler.ctrlKey;
+    const hotkey = (handler.key === ' ') && handler.ctrlKey;
 
-    if (ctrl && space && !vars.modalOpen) openModal();
+    if (hotkey && !vars.modalOpen) openModal();
 }
 
 /**
