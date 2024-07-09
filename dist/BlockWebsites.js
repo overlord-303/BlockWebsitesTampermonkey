@@ -21,6 +21,21 @@
 const vars = {
     href: (link) => window.location.href.includes(link),
     regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
+    div: document.createElement('div'),
+    style: {
+        backgroundTransparent: 'rgba(0,0,0,0.5)',
+        backgroundColor: '#181a1b',
+        backgroundInput: '#3b3b3b',
+        color: '#989595',
+        filter: 'drop-shadow(2px 4px 6px black)',
+        boxShadow: '0 0 10px rgba(0,0,0,0.25)',
+        buttons: {
+            color: 'white',
+            blockBtn: 'red',
+            unblockBtn: 'green',
+            closeBtn: 'gray',
+        },
+    },
     modalOpen: false,
     blockBtnId: generateUUID('blockBtn'),
     unblockBtnId: generateUUID('unblockBtn'),
@@ -193,52 +208,55 @@ function createModal()
         }
     `;
 
-    const modal = document.createElement('div');
+    const modal = vars.div;
     modal.id = vars.blockModalId;
+    modal.style.backgroundColor = vars.style.backgroundTransparent;
+    modal.style.filter = vars.style.filter;
+
     modal.style.position = 'fixed';
     modal.style.top = '0';
     modal.style.left = '0';
     modal.style.width = '100%';
     modal.style.height = '100%';
-    modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
     modal.style.display = 'flex';
     modal.style.justifyContent = 'center';
     modal.style.alignItems = 'center';
     modal.style.zIndex = '1001';
-    modal.style.filter = 'drop-shadow(2px 4px 6px black)';
 
-    const modalContent = document.createElement('div');
-    modalContent.style.backgroundColor = '#181a1b';
+    const modalContent = vars.div;
+    modalContent.style.backgroundColor = vars.style.backgroundColor;
+    modalContent.style.boxShadow = vars.style.boxShadow;
+
     modalContent.style.padding = '20px';
     modalContent.style.borderRadius = '10px';
-    modalContent.style.boxShadow = '0 0 10px rgba(0,0,0,0.25)';
     modalContent.style.textAlign = 'center';
     modalContent.style.marginRight = '20px';
     modalContent.innerHTML = `
         <h2 style="margin: 0 0 10px 0; color: #989595">Block or Unblock Website</h2>
-        <input type="text" id="${vars.siteInputId}" placeholder="Enter website URL" style="width: 80%; padding: 10px; margin-bottom: 10px; transition: border 0.5s; border: none; border-radius: 3px; background: #3b3b3b; color: white;">
+        <input type="text" id="${vars.siteInputId}" placeholder="Enter website URL" style="width: 80%; padding: 10px; margin-bottom: 10px; transition: border 0.5s; border: none; border-radius: 3px; background: ${vars.style.backgroundInput}; color: ${vars.style.buttons.color};">
         <br>
-        <button id="${vars.blockBtnId}" class="modal-button" style="background-color: red; color: white; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Block</button>
-        <button id="${vars.unblockBtnId}" class="modal-button" style="background-color: green; color: white; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Unblock</button>
-        <button id="${vars.closeBtnId}" class="modal-button" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Close</button>
+        <button id="${vars.blockBtnId}" class="modal-button" style="background-color: ${vars.style.buttons.blockBtn}; color: ${vars.style.buttons.color}; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Block</button>
+        <button id="${vars.unblockBtnId}" class="modal-button" style="background-color: ${vars.style.buttons.unblockBtn}; color: ${vars.style.buttons.color}; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Unblock</button>
+        <button id="${vars.closeBtnId}" class="modal-button" style="background-color: ${vars.style.buttons.closeBtn}; color: ${vars.style.buttons.color}; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Close</button>
     `;
 
-    const blockedList = document.createElement('div');
-    blockedList.style.backgroundColor = '#181a1b';
+    const blockedList = vars.div;
+    blockedList.style.backgroundColor = vars.style.backgroundColor;
+    blockedList.style.boxShadow = vars.style.boxShadow;
+
     blockedList.style.padding = '20px';
     blockedList.style.borderRadius = '10px';
-    blockedList.style.boxShadow = '0 0 10px rgba(0,0,0,0.25)';
     blockedList.style.textAlign = 'left';
     blockedList.style.color = 'white';
     blockedList.style.width = '250px';
     blockedList.style.height = '300px';
     blockedList.style.overflowY = 'scroll';
     blockedList.innerHTML = `
-        <h2 style="margin: 0 0 10px 0; color: #989595">Blocked Websites</h2>
+        <h2 style="margin: 0 0 10px 0; color: ${vars.style.color}">Blocked Websites</h2>
         <ul id="${vars.blockedListId}" style="list-style-type: none; padding: 0;"></ul>
     `;
 
-    const container = document.createElement('div');
+    const container = vars.div;
     container.style.display = 'flex';
     container.style.alignItems = 'center';
 
@@ -265,7 +283,7 @@ function updateBlockedList()
     getBlockedSites().forEach(site => {
         const listItem = document.createElement('li');
         listItem.textContent = site;
-        listItem.style.color = '#989595';
+        listItem.style.color = vars.style.color;
         listItem.style.margin = '2px';
         blockedList.appendChild(listItem);
     });
