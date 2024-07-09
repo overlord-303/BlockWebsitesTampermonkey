@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.5.1
+// @version      1.5.2
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
@@ -26,7 +26,6 @@ const vars = {
     href: (link) => window.location.href.includes(link),
     regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
     modalOpen: false,
-    lastUpdated: getLastUpdated(),
     blockBtnId: generateUUID('blockBtn'),
     unblockBtnId: generateUUID('unblockBtn'),
     closeBtnId: generateUUID('closeBtn'),
@@ -43,7 +42,10 @@ const vars = {
 
     document.addEventListener("keydown", onKeyDown);
     
-    GM_addValueChangeListener("blockedSites", run);
+    GM_addValueChangeListener("blockedSites", () => {
+        run();
+        if (vars.modalOpen) updateBlockedList();
+    });
     
     run();
 })();
@@ -81,27 +83,7 @@ function getBlockedSites()
 function setBlockedSites(blockedSites)
 {
     GM_setValue('blockedSites', JSON.stringify(blockedSites));
-    setLastUpdated();
-
     return getBlockedSites();
-}
-
-/**
- * Returns the timestamp of the last blocked urls array update.
- *
- * @return {number}
- */
-function getLastUpdated()
-{
-    return GM_getValue('lastUpdated', Date.now());
-}
-
-/**
- * Set the last update of the blocked urls array to the current timestamp.
- */
-function setLastUpdated()
-{
-    GM_setValue('lastUpdated', Date.now());
 }
 
 /**
