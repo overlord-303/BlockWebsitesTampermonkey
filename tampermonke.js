@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.4.6
+// @version      1.5.0
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/block.png
 // @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/tampermonke.js
 // @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/tampermonke.js
 // @supportURL   https://github.com/overlord-303/BlockWebsitesTampermonkey/issues
-// @license      GNU AGPLv3
 // @match        *://*/*
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_addValueChangeListener
 // @grant        window.close
 // @run-at       document-start
 // ==/UserScript==
@@ -41,7 +41,9 @@ const vars = {
     'use strict';
 
     document.addEventListener("keydown", onKeyDown);
-    setInterval(checkForUpdatedValue, 5000);
+    
+    GM_addValueChangeListener("blockedSites", run);
+    
     run();
 })();
 
@@ -61,26 +63,13 @@ function run()
 }
 
 /**
- * Checks whether to re-run the main-functionality with updated url values.
- */
-function checkForUpdatedValue()
-{
-    if (vars.lastUpdated !== getLastUpdated())
-    {
-        run();
-        vars.lastUpdated = getLastUpdated();
-    }
-}
-
-/**
  * Returns an array of all blocked urls.
  *
  * @return {string[]}
  */
 function getBlockedSites()
 {
-    const stored = GM_getValue('blockedSites', JSON.stringify(['placeholder.com']));
-    return JSON.parse(stored);
+    return JSON.parse(GM_getValue('blockedSites', JSON.stringify(['placeholder.com'])));
 }
 
 /**
@@ -200,7 +189,7 @@ function openModal()
     document.getElementById(vars.closeBtnId).onclick = () =>
     {
         document.body.removeChild(modal);
-        log('current blocked urls', 'i', vars.blockedSites);
+        // log('current blocked urls', 'i', vars.blockedSites);
 
         vars.modalOpen = false;
     };
@@ -352,3 +341,26 @@ function log(log, level = 'l', ...args)
             break
     }
 }
+
+/**
+ * @function GM_getValue
+ *
+ * @param {string} key
+ * @param {any} defaultValue
+ *
+ * @return {string|number}
+ */
+
+/**
+ * @function GM_setValue
+ *
+ * @param {string} key
+ * @param {string|number} value
+ */
+
+/**
+ * @function GM_addValueChangeListener
+ * 
+ *  @param {string} key
+ *  @param {function} callbackFunction
+ */
