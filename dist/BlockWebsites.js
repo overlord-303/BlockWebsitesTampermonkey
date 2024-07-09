@@ -297,7 +297,7 @@ function updateBlockedList()
 /**
  * Triggers on **keydown** event and fires when *ctrl*+*space* is pressed.
  *
- * @param handler
+ * @param {KeyboardEvent} handler
  */
 function onKeyDown(handler)
 {
