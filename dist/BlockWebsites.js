@@ -19,10 +19,6 @@
 // noinspection JSUnresolvedReference, JSUnusedGlobalSymbols
 
 const vars = {
-    get blockedSites() // get-function to always return newest non-cached values (live updates across tabs)
-    {
-        return getBlockedSites();
-    },
     href: (link) => window.location.href.includes(link),
     regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
     modalOpen: false,
@@ -55,7 +51,7 @@ const vars = {
  */
 function run()
 {
-    vars.blockedSites.forEach(website =>
+    getBlockedSites().forEach(website =>
     {
         if (vars.href(website)) //vars.regex(website)
         {
@@ -121,7 +117,7 @@ function openModal()
 
     document.getElementById(vars.blockBtnId).onclick = () =>
     {
-        const blockedSites = vars.blockedSites;
+        const blockedSites = getBlockedSites();
         const link = input.value.trim();
         if (link)
         {
@@ -146,7 +142,7 @@ function openModal()
 
     document.getElementById(vars.unblockBtnId).onclick = () =>
     {
-        const blockedSites = vars.blockedSites;
+        const blockedSites = getBlockedSites();
         const link = input.value.trim();
         if (link)
         {
@@ -172,7 +168,6 @@ function openModal()
     document.getElementById(vars.closeBtnId).onclick = () =>
     {
         document.body.removeChild(modal);
-        // log('current blocked urls', 'i', vars.blockedSites);
 
         vars.modalOpen = false;
     };
@@ -267,7 +262,7 @@ function updateBlockedList()
 
     blockedList.innerHTML = '';
 
-    vars.blockedSites.forEach(site => {
+    getBlockedSites().forEach(site => {
         const listItem = document.createElement('li');
         listItem.textContent = site;
         listItem.style.color = '#989595';
