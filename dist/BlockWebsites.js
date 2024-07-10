@@ -55,7 +55,7 @@ const vars = {
     
     GM_addValueChangeListener("blockedSites", () => {
         run();
-        if (vars.modalOpen) updateBlockedList();
+        updateBlockedList();
     });
     
     run();
@@ -276,6 +276,8 @@ function createModal()
  */
 function updateBlockedList()
 {
+    if (!vars.modalOpen) return;
+
     const blockedList = document.getElementById(vars.blockedListId);
 
     blockedList.innerHTML = '';
