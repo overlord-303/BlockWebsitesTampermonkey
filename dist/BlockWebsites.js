@@ -35,7 +35,6 @@ const vars = {
             closeBtn: '#808080',
         },
     },
-    div: document.createElement('div'),
     modalOpen: false,
     blockBtnId: generateUUID('blockBtn'),
     unblockBtnId: generateUUID('unblockBtn'),
@@ -241,7 +240,7 @@ function createModal()
         }
     `;
 
-    const modal = vars.div;
+    const modal = document.createElement('div');
     modal.id = vars.blockModalId;
     modal.style.backgroundColor = vars.style.backgroundTransparent;
     modal.style.filter = vars.style.filter;
@@ -256,7 +255,7 @@ function createModal()
     modal.style.alignItems = 'center';
     modal.style.zIndex = '1001';
 
-    const modalContent = vars.div;
+    const modalContent = document.createElement('div');
     modalContent.style.backgroundColor = vars.style.backgroundColor;
     modalContent.style.boxShadow = vars.style.boxShadow;
 
@@ -273,7 +272,7 @@ function createModal()
         <button id="${vars.closeBtnId}" class="modal-button" style="background-color: ${vars.style.buttons.closeBtn}; color: ${vars.style.buttons.color}; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Close</button>
     `;
 
-    const blockedList = vars.div;
+    const blockedList = document.createElement('div');
     blockedList.style.backgroundColor = vars.style.backgroundColor;
     blockedList.style.boxShadow = vars.style.boxShadow;
 
@@ -290,7 +289,7 @@ function createModal()
         <ul id="${vars.blockedListId}" style="list-style-type: none; padding: 0; overflow-y: scroll; max-height: 250px;"></ul>
     `;
 
-    const container = vars.div;
+    const container = document.createElement('div');
     container.style.display = 'flex';
     container.style.alignItems = 'center';
 
