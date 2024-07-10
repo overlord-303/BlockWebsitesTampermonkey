@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.5.4
+// @version      1.5.5
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
@@ -20,6 +20,7 @@
 
 const vars = {
     href: (link) => window.location.href.includes(link),
+    validUrl: (link) => /^https?:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/.*)?$/.test(link),
     regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
     style: {
         backgroundTransparent: 'rgba(0,0,0,0.5)',
@@ -133,7 +134,7 @@ function openModal()
     {
         const blockedSites = getBlockedSites();
         const link = input.value.trim();
-        if (link)
+        if (link && vars.validUrl(link))
         {
             if (!blockedSites.includes(link))
             {
@@ -149,16 +150,20 @@ function openModal()
             {
                 input.placeholder = `Website already blocked.`;
             }
-
-            finish();
         }
+        else
+        {
+            input.placeholder = `Invalid domain.`;
+        }
+
+        finish();
     };
 
     document.getElementById(vars.unblockBtnId).onclick = () =>
     {
         const blockedSites = getBlockedSites();
         const link = input.value.trim();
-        if (link)
+        if (link && vars.validUrl(link))
         {
             const index = blockedSites.indexOf(link);
 
@@ -174,9 +179,13 @@ function openModal()
             {
                 input.placeholder = `Website isn't blocked.`;
             }
-
-            finish();
         }
+        else
+        {
+            input.placeholder = `Invalid domain.`;
+        }
+
+        finish();
     };
 
     document.getElementById(vars.closeBtnId).onclick = () =>
@@ -283,6 +292,7 @@ function createModal()
     blockedList.style.color = 'white';
     blockedList.style.width = '250px';
     blockedList.style.maxHeight = '300px';
+    blockedList.style.height = '300px';
     blockedList.style.overflow = 'hidden';
     blockedList.innerHTML = `
         <h2 style="margin: 0 0 10px 0; color: ${vars.style.color}">Blocked Websites</h2>
