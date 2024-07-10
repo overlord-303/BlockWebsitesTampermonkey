@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Block Websites
 // @namespace    http://tampermonkey.net/
-// @version      1.5.3
+// @version      1.5.4
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
@@ -173,7 +173,7 @@ function openModal()
             }
             else
             {
-                input.placeholder = `Website already unblocked.`;
+                input.placeholder = `Website isn't blocked.`;
             }
 
             finish();
@@ -206,6 +206,39 @@ function createModal()
         .modal-button {
             border: none !important;
         }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-button {
+            width: 0px;
+            height: 0px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #989595;
+            border: 0px none #ffffff;
+            border-radius: 50px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #838181;
+        }
+        ::-webkit-scrollbar-thumb:active {
+            background: #838181;
+        }
+        ::-webkit-scrollbar-track {
+            background: #3b3b3b;
+            border: 0px none #ffffff;
+            border-radius: 50px;
+        }
+        ::-webkit-scrollbar-track:hover {
+            background: #3b3b3b;
+        }
+        ::-webkit-scrollbar-track:active {
+            background: #3b3b3b;
+        }
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
     `;
 
     const modal = vars.div;
@@ -230,7 +263,7 @@ function createModal()
     modalContent.style.padding = '20px';
     modalContent.style.borderRadius = '10px';
     modalContent.style.textAlign = 'center';
-    modalContent.style.marginRight = '20px';
+    modalContent.style.margin = '10px';
     modalContent.innerHTML = `
         <h2 style="margin: 0 0 10px 0; color: #989595">Block or Unblock Website</h2>
         <input type="text" id="${vars.siteInputId}" placeholder="Enter website URL" style="width: 80%; padding: 10px; margin-bottom: 10px; transition: border 0.5s; border: none; border-radius: 3px; background: ${vars.style.backgroundInput}; color: ${vars.style.buttons.color};">
@@ -247,13 +280,14 @@ function createModal()
     blockedList.style.padding = '20px';
     blockedList.style.borderRadius = '10px';
     blockedList.style.textAlign = 'left';
+    blockedList.style.margin = '10px';
     blockedList.style.color = 'white';
     blockedList.style.width = '250px';
-    blockedList.style.height = '300px';
-    blockedList.style.overflowY = 'scroll';
+    blockedList.style.maxHeight = '300px';
+    blockedList.style.overflow = 'hidden';
     blockedList.innerHTML = `
         <h2 style="margin: 0 0 10px 0; color: ${vars.style.color}">Blocked Websites</h2>
-        <ul id="${vars.blockedListId}" style="list-style-type: none; padding: 0;"></ul>
+        <ul id="${vars.blockedListId}" style="list-style-type: none; padding: 0; overflow-y: scroll; max-height: 250px;"></ul>
     `;
 
     const container = vars.div;
@@ -345,14 +379,14 @@ function log(log, level = 'l', ...args)
  * @param {string} key
  * @param {any} defaultValue
  *
- * @return {string|number}
+ * @return {any}
  */
 
 /**
  * @function GM_setValue
  *
  * @param {string} key
- * @param {string|number} value
+ * @param {any} value
  */
 
 /**
