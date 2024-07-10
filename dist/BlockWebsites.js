@@ -21,7 +21,7 @@
 const vars = {
     href: (link) => window.location.href.includes(link),
     validUrl: (link) => /^https?:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/.*)?$/.test(link),
-    regex: (link) => (new RegExp(`^(https?:\/\/)?(www\.)?(${link.replace(/\./g, '\.')})(\/.+|$)`, 'i')).test(window.location.href),
+    regex: (link) => (new RegExp(`^(https?:\/\/)(www\.)?${link.replace(/https?:\/\//, '').replace(/www\./, '').replace(/\./g, '\.')}(\/(.+|$)|$)`, 'i')).test(window.location.href),
     style: {
         backgroundTransparent: 'rgba(0,0,0,0.5)',
         backgroundColor: '#181a1b',
@@ -68,7 +68,7 @@ function run()
 {
     getBlockedSites().forEach(website =>
     {
-        if (vars.href(website)) //vars.regex(website)
+        if (vars.regex(website))
         {
             window.stop();
             window.close();
@@ -83,7 +83,7 @@ function run()
  */
 function getBlockedSites()
 {
-    return JSON.parse(GM_getValue('blockedSites', JSON.stringify(['placeholder.com'])));
+    return JSON.parse(GM_getValue('blockedSites', JSON.stringify(['https://www.placeholder.com'])));
 }
 
 /**
@@ -106,7 +106,7 @@ function setBlockedSites(blockedSites)
 function generateUUID(prefix = null)
 {
     const uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, char=> (char ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> char / 4).toString(16));
-    return prefix ? prefix + '-' + uuid : uuid;
+    return prefix ? `${prefix}-${uuid}` : uuid;
 }
 
 /**
@@ -143,8 +143,6 @@ function openModal()
                 setBlockedSites(blockedSites);
 
                 input.placeholder = `Website blocked.`;
-
-                if (vars.href(link)) window.location.reload();
             }
             else
             {
@@ -273,7 +271,7 @@ function createModal()
     modalContent.style.textAlign = 'center';
     modalContent.style.margin = '10px';
     modalContent.innerHTML = `
-        <h2 style="margin: 0 0 10px 0; color: #989595">Block or Unblock Website</h2>
+        <h2 style="margin: 0 0 10px 0; color: ${vars.style.color}">Block or Unblock Website</h2>
         <input type="text" id="${vars.siteInputId}" placeholder="Enter website URL" style="width: 80%; padding: 10px; margin-bottom: 10px; transition: border 0.5s; border: none; border-radius: 3px; background: ${vars.style.backgroundInput}; color: ${vars.style.buttons.color};">
         <br>
         <button id="${vars.blockBtnId}" class="modal-button" style="background-color: ${vars.style.buttons.blockBtn}; color: ${vars.style.buttons.color}; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px;">Block</button>
