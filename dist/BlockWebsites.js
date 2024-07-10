@@ -318,21 +318,21 @@ function log(log, level = 'l', ...args)
         case 'e':
         case 'err':
         case 'error':
-            console.error(message, ...args);
+            console.error(`🚨 ${message}\n`, ...args);
             break;
         case 'l':
         case 'log':
-            console.log(message, ...args);
+            console.log(`📰 ${message}\n`, ...args);
             break;
         case 'w':
         case 'warn':
         case 'warning':
-            console.warn(message, ...args);
+            console.warn(`⚠️ ${message}\n`, ...args);
             break;
         case 'i':
         case 'info':
         default:
-            console.info(message, ...args);
+            console.info(`ℹ️ ${message}\n`, ...args);
             break
     }
 }
