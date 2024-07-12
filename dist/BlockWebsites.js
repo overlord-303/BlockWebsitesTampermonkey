@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Block Websites - Development Version
+// @name         Block Websites
 // @namespace    http://tampermonkey.net/
 // @version      1.5.7
 // @description  Block unwanted websites in a given list.
@@ -21,7 +21,7 @@
 const vars = {
     href: (link) => window.location.href.includes(link),
     validUrl: (link) => /^https?:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/.*)?$/.test(link),
-    regex: (link) => (new RegExp(`^(https?:\/\/)(www\.)?${link.replace(/https?:\/\//, '').replace(/www\./, '').replace(/\./g, '\.')}(\/(.+|$)|$)`, 'i')).test(window.location.href),
+    regex: (link) => (new RegExp(`^(https?:\/\/)(www\.)?${link.replace(/https?:\/\//, '').replace(/www\./, '').replace(/\./g, '\.')}(\/?(.+|$)|$)`, 'i')).test(window.location.href),
     style: {
         backgroundTransparent: 'rgba(0,0,0,0.5)',
         backgroundColor: '#181a1b',
