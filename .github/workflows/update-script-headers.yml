@@ -10,6 +10,9 @@ on:
       - main
       - develop
 
+permissions:
+  contents: write
+
 jobs:
   update-header:
     runs-on: ubuntu-latest
