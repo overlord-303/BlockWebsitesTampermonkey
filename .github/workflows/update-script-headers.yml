@@ -29,14 +29,15 @@ jobs:
         if: steps.vars.outputs.branch == 'main'
         run: |
           script_file="dist/BlockWebsites.js"
-          sed -i 's/Block Websites - Development Version/Block Websites/' "$script_file"
+          sed -i '/Block Websites - Development Version/s//Block Websites/' "$script_file"
           sed -i 's/\/develop\//\/main\//g' "$script_file"
 
       - name: Update script header for develop branch
         if: steps.vars.outputs.branch == 'develop'
         run: |
           script_file="dist/BlockWebsites.js"
-          sed -i 's/Block Websites/Block Websites - Development Version/' "$script_file"
+          # Ensure only one instance of ' - Development Version'
+          sed -i '/Block Websites$/s//& - Development Version/' "$script_file"
           sed -i 's/\/main\//\/develop\//g' "$script_file"
 
       - name: Commit and push changes
