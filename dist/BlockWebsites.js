@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Block Websites - Development Version - Development Version
+// @name         Block Websites - Development Version - Development Version - Development Version
 // @namespace    http://tampermonkey.net/
 // @version      1.5.6
 // @description  Block unwanted websites in a given list.
@@ -366,7 +366,7 @@ function onKeyDown(handler)
  */
 function log(log, level = 'l', ...args)
 {
-    const prefix = 'Block Websites - Development Version:'
+    const prefix = 'Block Websites - Development Version - Development Version:'
     const message = `${prefix} ${log}`;
 
     switch (level)
