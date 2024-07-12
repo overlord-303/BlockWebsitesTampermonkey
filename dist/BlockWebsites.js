@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         Block Websites - Development Version
+// @name         Block Websites
 // @namespace    http://tampermonkey.net/
 // @version      1.5.7
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
-// @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/develop/dist/media/block.png
-// @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/develop/dist/BlockWebsites.js
-// @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/develop/dist/Blockwebsites.js
+// @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
+// @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/BlockWebsites.js
+// @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/Blockwebsites.js
 // @supportURL   https://github.com/overlord-303/BlockWebsitesTampermonkey/issues
 // @license      GNU AGPLv3
 // @match        *://*/*
@@ -366,7 +366,7 @@ function onKeyDown(handler)
  */
 function log(log, level = 'l', ...args)
 {
-    const prefix = 'Block Websites - Development Version - Development Version - Development Version - Development Version - Development Version:'
+    const prefix = 'Block Websites - Development Version - Development Version - Development Version - Development Version:'
     const message = `${prefix} ${log}`;
 
     switch (level)
