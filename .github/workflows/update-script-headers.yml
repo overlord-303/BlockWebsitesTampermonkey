@@ -25,14 +25,14 @@ jobs:
         id: vars
         run: echo "::set-output name=branch::$(git rev-parse --abbrev-ref HEAD)"
 
-      - name: Update script header for main branch
+      - name: Update script header for main branch.
         if: steps.vars.outputs.branch == 'main'
         run: |
           script_file="dist/BlockWebsites.js"
           sed -i 's/Block Websites - Development Version/Block Websites/' "$script_file"
           sed -i 's/\/develop\//\/main\//g' "$script_file"
 
-      - name: Update script header for develop branch
+      - name: Update script header for develop branch.
         if: steps.vars.outputs.branch == 'develop'
         run: |
           script_file="dist/BlockWebsites.js"
