@@ -98,6 +98,20 @@ function setBlockedSites(blockedSites)
 }
 
 /**
+ * Removes the *blockedSites* default property.
+ *
+ * @param {string[]} blockedSites
+ *
+ * @return {string[]}
+ */
+function removePlaceholder(blockedSites)
+{
+    const index = blockedSites.indexOf('https://placeholder.com');
+
+    return (blockedSites.length > 1 && index !== -1) ? blockedSites.splice(index, 1) : blockedSites;
+}
+
+/**
  * Generates a UUID (Universally Unique Identifier) including a prefix, when provided.
  *
  * @param {string|null} prefix
@@ -140,7 +154,7 @@ function openModal()
             {
                 blockedSites.push(link);
 
-                setBlockedSites(blockedSites);
+                setBlockedSites(removePlaceholder(blockedSites));
 
                 input.placeholder = `Website blocked.`;
             }
@@ -169,7 +183,7 @@ function openModal()
             {
                 blockedSites.splice(index, 1);
 
-                setBlockedSites(blockedSites);
+                setBlockedSites(removePlaceholder(blockedSites));
 
                 input.placeholder = `Website unblocked.`;
             }
