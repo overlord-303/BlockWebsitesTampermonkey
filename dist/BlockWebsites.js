@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         Block Websites
+// @name         Block Websites - Development Version
 // @namespace    http://tampermonkey.net/
-// @version      1.5.5
+// @version      1.5.6
 // @description  Block unwanted websites in a given list.
 // @author       Overlord_303 (https://github.com/overlord-303)
 // @icon         https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/media/block.png
-// @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/BlockWebsites.js
-// @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/main/dist/BlockWebsites.js
+// @updateURL    https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/develop/dist/BlockWebsites.js
+// @downloadURL  https://github.com/overlord-303/BlockWebsitesTampermonkey/raw/develop/dist/BlockWebsites.js
 // @supportURL   https://github.com/overlord-303/BlockWebsitesTampermonkey/issues
 // @license      GNU AGPLv3
 // @match        *://*/*
@@ -27,7 +27,7 @@ const vars = {
         backgroundColor: '#181a1b',
         backgroundInput: '#3b3b3b',
         color: '#989595',
-        filter: 'drop-shadow(2px 4px 6px black)',
+        filter: 'drop-shadow(2px 4px 6px #000000)',
         boxShadow: '0 0 10px rgba(0,0,0,0.25)',
         buttons: {
             color: '#ffffff',
@@ -371,25 +371,28 @@ function log(log, level = 'l', ...args)
 
     switch (level)
     {
-        case 'e':
-        case 'err':
-        case 'error':
-            console.error(`🚨 ${message}\n`, ...args);
-            break;
         case 'l':
         case 'log':
             console.log(`📰 ${message}\n`, ...args);
             break;
+
+        case 'i':
+        case 'info':
+        default:
+            console.info(`ℹ️ ${message}\n`, ...args);
+            break;
+
         case 'w':
         case 'warn':
         case 'warning':
             console.warn(`⚠️ ${message}\n`, ...args);
             break;
-        case 'i':
-        case 'info':
-        default:
-            console.info(`ℹ️ ${message}\n`, ...args);
-            break
+
+        case 'e':
+        case 'err':
+        case 'error':
+            console.error(`🚨 ${message}\n`, ...args);
+            break;
     }
 }
 
