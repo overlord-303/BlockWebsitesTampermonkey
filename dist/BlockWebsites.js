@@ -366,7 +366,7 @@ function onKeyDown(handler)
  */
 function log(log, level = 'l', ...args)
 {
-    const prefix = 'Block Websites - Development Version - Development Version - Development Version - Development Version - Development Version:'
+    const prefix = 'Block Websites - Development Version:'
     const message = `${prefix} ${log}`;
 
     switch (level)

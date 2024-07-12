@@ -47,6 +47,6 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add dist/BlockWebsites.js
-          git commit -m "Update script header for ${{ steps.vars.outputs.branch }} branch"
+          git commit -m "Update script header for ${{ steps.vars.outputs.branch }} branch."
           git push
         if: steps.vars.outputs.branch == 'main' || steps.vars.outputs.branch == 'develop'
