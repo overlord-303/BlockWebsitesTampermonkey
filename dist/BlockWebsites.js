@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Block Websites
+// @name         Block Websites - Development Version
 // @namespace    http://tampermonkey.net/
 // @version      1.5.7
 // @description  Block unwanted websites in a given list.
