@@ -106,8 +106,7 @@ function setBlockedSites(blockedSites)
  */
 function removePlaceholder(blockedSites)
 {
-    const index = blockedSites.indexOf('https://placeholder.com');
-
+    const index = blockedSites.indexOf('https://www.placeholder.com');
     return (blockedSites.length > 1 && index !== -1) ? blockedSites.splice(index, 1) : blockedSites;
 }
 
